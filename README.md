@@ -1,4 +1,4 @@
-# Bộ nhân mul16 – <Họ tên>, <MSSV>
+# Bộ nhân mul16 – Nguyễn Nguyễn Gia Kiệt, 77482403185
 
 Repo cá nhân dùng cho Lab 2 đến Lab 8. Đặc tả: `doc/dac-ta.md`.
 
