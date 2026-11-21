@@ -34,4 +34,7 @@ trace:
 clean:
 	rm -rf sim
 
-.PHONY: help lint sim sim-icarus wave trace clean
+logs:
+	tclsh sw/scripts/tong_hop_log.tcl
+
+.PHONY: help lint sim sim-icarus wave trace clean logs
