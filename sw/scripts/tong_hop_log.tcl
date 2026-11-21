@@ -1,5 +1,6 @@
 #!/usr/bin/env tclsh
 # Lab 2 - Phan 5: tong hop cac log mo phong trong logs/.
+# Tuy chon --percent dung cho cau Q17.
 proc doc_log {f} {
     set commit "?"
     set ket_qua "?"
@@ -29,13 +30,25 @@ if {[llength $files] == 0} {
     puts stderr "Khong tim thay file .log trong logs/"
     exit 1
 }
-puts [format "%-12s %-9s %-8s %s" "File" "Commit" "Ket qua" "Sai"]
+set show_percent [expr {[lsearch -exact $argv "--percent"] >= 0}]
+if {$show_percent} {
+    puts [format "%-12s %-9s %-8s %-5s %s" "File" "Commit" "Ket qua" "Sai" "Ti le"]
+} else {
+    puts [format "%-12s %-9s %-8s %s" "File" "Commit" "Ket qua" "Sai"]
+}
 set tong 0
 foreach f $files {
     lassign [doc_log $f] commit ket_qua sai
-    puts [format "%-12s %-9s %-8s %s" [file tail $f] $commit $ket_qua $sai]
     if {[string is integer -strict $sai]} {
         incr tong $sai
+        set ti_le [format "%.1f%%" [expr {100.0 * $sai / 206.0}]]
+    } else {
+        set ti_le "-"
+    }
+    if {$show_percent} {
+        puts [format "%-12s %-9s %-8s %-5s %s" [file tail $f] $commit $ket_qua $sai $ti_le]
+    } else {
+        puts [format "%-12s %-9s %-8s %s" [file tail $f] $commit $ket_qua $sai]
     }
 }
 puts "Tong so phep nhan sai: $tong"
